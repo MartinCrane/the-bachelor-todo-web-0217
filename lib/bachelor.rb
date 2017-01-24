@@ -22,8 +22,7 @@ end
 def count_contestants_by_hometown(data, hometown)
   hometown_count = 0
   data.each do |season, season_data|
-    season_data.each do |character, character_data|
-      
+    season_data.each do |character|
       if character["hometown"] == hometown
         hometown_count += 1
       end
@@ -33,9 +32,22 @@ def count_contestants_by_hometown(data, hometown)
 end
 
 def get_occupation(data, hometown)
-  # code here
+  data.each do |season, season_data|
+    season_data.each do |character|
+      if character["hometown"] == hometown
+        return character["occupation"]
+      end
+    end
+  end
 end
 
 def get_average_age_for_season(data, season)
-  # code here
+  age_machine = []
+  data["#{season}"].each do |person|
+    age_machine.push(person["age"].to_i)
+  end
+  average_age = 0
+  age_machine.each {|x| average_age += x}
+
+  (average_age.to_f/age_machine.size.to_f).round
 end
